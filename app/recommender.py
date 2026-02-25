@@ -1,3 +1,5 @@
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import pickle
 import numpy as np
 import pandas as pd
@@ -20,6 +22,13 @@ def clean(text: str) -> str:
 class BookRecommender:
     def __init__(self):
         # Load all artifacts ONCE
+        import sys
+        import keras_preprocessing
+        import keras_preprocessing.text
+        sys.modules['keras_preprocessing'] = keras_preprocessing
+        sys.modules['keras.preprocessing'] = keras_preprocessing
+        sys.modules['keras.preprocessing.text'] = keras_preprocessing.text
+        sys.modules['keras.src.preprocessing.text'] = keras_preprocessing.text
         self.tokenizer = pickle.load(open("artifacts/tokenizer/tokenizer.pkl", "rb"))
         self.model = tf.keras.models.load_model(
             "artifacts/models/lstm_encoder_triplet.keras",
