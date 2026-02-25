@@ -131,19 +131,49 @@ The LSTM model alone tends to predict generic phrases like `"of the"` or `"in th
 
 ---
 
-## 🚀 API Reference
+## 🚀 Getting Started (Fresh Install)
 
-### Start the Server
+If you've just cloned this repository to a new machine, follow these steps to get everything running:
 
+### 1. Download Required Artifacts
+The actual model weights, embeddings, and matrices are too large for GitHub and are ignored via `.gitignore`. 
+Before starting the backend, you must download the missing artifacts from the [Google Drive](https://drive.google.com/drive/folders/1dnTdDDlWa3BFaPdeN_fCEEDd2W-200NS?usp=sharing):
+1. Download `book_embeddings.npy` and place it in the `artifacts/embeddings/` folder.
+2. Download `tfidf_matrix.pkl` and place it in the `artifacts/tfidf/` folder.
+
+### 2. Start the Backend (FastAPI)
+Open a terminal in the root directory and install the Python dependencies:
 ```bash
-# 1. Install dependencies
+# 1. Create and activate a Virtual Environment (Recommended)
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On Mac/Linux:
+# source venv/bin/activate
+
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 2. Start server
-python -m uvicorn app.main:app
+# 3. Start the FastAPI server
+python -m uvicorn app.main:app --reload
 
-# 3. Open Swagger UI
-# http://127.0.0.1:8000/docs
+# The API will be running at: http://127.0.0.1:8000
+# API Documentation: http://127.0.0.1:8000/docs
+```
+
+### 3. Start the Frontend (React / Vite)
+Open a **second** terminal window, navigate to the `frontend` folder, and start the development server:
+```bash
+# 1. Navigate to the frontend directory
+cd frontend
+
+# 2. Install Node dependencies
+npm install
+
+# 3. Start the React dev server
+npm run dev
+
+# The UI will be available at: http://localhost:5173 
 ```
 
 ### `POST /recommend`
